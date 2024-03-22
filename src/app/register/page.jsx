@@ -27,6 +27,7 @@ const Login = () => {
 		e.preventDefault()
 		setLoading(true)
 
+		
 		if (user.contraseña !== user.repetirContraseña) {
 			Toast.fire({
 				icon: 'error',
@@ -35,6 +36,7 @@ const Login = () => {
 			setLoading(false)
 			return
 		}
+	
 		try {
 			const res = await Register(user.usuario, user.nombre, user.correo, user.contraseña)
 			console.log(res)
@@ -77,6 +79,11 @@ const Login = () => {
 						<TextInput
 							placeholder="Usuario"
 							onChange={(e) => setUser({ ...user, usuario: e.target.value })}
+							required
+						/>
+						<TextInput
+							placeholder="Nombre Completo"
+							onChange={(e) => setUser({ ...user, nombre: e.target.value })}
 							required
 						/>
 						<TextInput

@@ -8,7 +8,7 @@ const withAuth = (WrappedComponent) => {
 
     useEffect(() => {
       // Verifica si el token existe en el LocalStorage
-      const storedToken = localStorage.getItem('token');
+      const storedToken = localStorage.getItem('tokenTaskManager');
 
       // Si no hay token, redirige al usuario al inicio de sesión
       if (!storedToken) {

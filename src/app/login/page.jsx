@@ -28,7 +28,7 @@ const Register = () => {
             console.log(res)
             if (res.status === 200) {
                 console.log(res)
-                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('tokenTaskManager', res.data.token)
                 router.push('/')
             }
 

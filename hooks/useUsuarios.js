@@ -39,10 +39,11 @@ export default function useUsuarios() {
         }
     }
     const decodeToken = async () => {
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('tokenTaskManager')
         const secretKey = '+dz<3!3Q@_%]E)P]';
 
-        const decodedToken = await jwt.verify(token, secretKey);
+        const decodedToken = await jwt.verify(token, secretKey)
+        console.log('decoded token',decodedToken);
         const usuario = {
             correo: decodedToken.correo,
             exp: decodedToken.exp,
