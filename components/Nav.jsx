@@ -3,14 +3,26 @@ import Logo from './Logo';
 import { use, useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link'
+import useUsuarios from '../hooks/useUsuarios';
 
 const Nav = () => {
   
   const router = useRouter();
+  const { decodeToken } = useUsuarios();
+  const [user, setUser] = useState(null);	
+
+  const handleUser = async () => {
+    const user = await decodeToken();
+    setUser(user);
+  }
+  useEffect(() => {
+    handleUser();
+  }, []);
   const signOut = () => {
     localStorage.removeItem("token");
     router.push("/login");
   };
+  
   return (
     <div className='shadow-md'>
       <Navbar fluid className="sticky top-0 z-20 h-16 container mx-auto">
@@ -32,8 +44,8 @@ const Nav = () => {
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm ">{`Usuario`}</span>
-              <span className="block truncate text-sm font-medium text-green-500">correo</span>
+              <span className="block text-sm ">{user?.nombre}</span>
+              <span className="block truncate text-sm font-medium text-green-500">{user?.correo}</span>
             </Dropdown.Header>
             <Dropdown.Divider />
             <Dropdown.Item onClick={signOut}  > Cerrar Sesión</Dropdown.Item>
