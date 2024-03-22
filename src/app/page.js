@@ -1,27 +1,47 @@
 'use client'
 import Image from "next/image";
 import withAuth from '../../utils/withAuth';
-import { Nav, Layout, StatsCard, ProjectCard } from "../../components";
+import { Nav, Layout, StatsCard, ProjectCard, ModalProyecto } from "../../components";
 import useUsuarios from "../../hooks/useUsuarios";
 import { useEffect, useState } from "react";
 import { RiCheckboxCircleLine, RiLoader2Line, RiCheckboxCircleFill } from "react-icons/ri";
+import { Button } from "flowbite-react"
+import useProyectos from "../../hooks/useProyectos";
 
 function Home() {
-  
+  const { decodeToken, getUsuarioById } = useUsuarios();
+  const { getProyectosByUserId } = useProyectos();
+  const [user, setUser] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const handleUser = async () => {
+    const user = await decodeToken();
+    console.log(user);
+    setUser(user);
+  }
 
-  const projects = [
-    { title: 'Matar a victor', creator: 'Wilber', date: '2024-03-25' },
-    { title: 'Ser Full Stack', creator: 'Wilber', date: '2024-03-26' },
-    { title: 'Delgado palomo', creator: 'Libe', date: '2024-03-27' },
-    { title: 'Hola Mundo', creator: 'Libe', date: '2024-03-28' },
-    { title: 'raisa', creator: 'Delgado', date: '2024-03-29' },
-    { title: 'Ingles', creator: 'Delgado', date: '2024-03-30' },
-    { title: 'Pegar BlockS', creator: 'Daniel', date: '2024-03-31' },
-  ];
+  const handleProyectos = async () => {
+    try {
+      const user = await decodeToken();
+      const res = await getProyectosByUserId(user.usuarioid);
+      setProjects(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  useEffect(() => {
+    handleUser();
+    handleProyectos();
+    setOpenModal(false);
+  }, []);
+
+
+
   return (
     <Layout>
+
       <div>
-        <h1 class="font-bold py-4 uppercase">Estadisticas tareas</h1>
+        <h1 className="font-bold py-4 uppercase">Estadisticas tareas</h1>
         <div id="stats" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <StatsCard
             title="Recibidos"
@@ -39,15 +59,23 @@ function Home() {
             icon={<RiCheckboxCircleFill className="w-10 h-10 text-green-500" />}
           />
         </div>
+
         <div>
-          <h1 class="font-bold py-4 uppercase">Mis Proyectos</h1>
+          <h1 className="font-bold py-4 uppercase">Mis Proyectos</h1>
+          <div className="flex justify-end mb-3">
+            <Button color="warning" onClick={() => setOpenModal(true)}>
+              Crear Nuevo Proyecto
+            </Button>
+           { user && user.usuarioid && (<ModalProyecto id={user.usuarioid} openModal={openModal} setOpenModal={setOpenModal} handleProyectos={handleProyectos} />)}
+          </div>
+
           <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {projects.map((project, index) => (
               <ProjectCard
                 key={index}
-                title={project.title}
-                creator={project.creator}
-                date={project.date}
+                title={project.nombre}
+                creator={project.creadorId}
+                date={new Date(project.fecha).toLocaleDateString()}
               />
             ))}
           </div>

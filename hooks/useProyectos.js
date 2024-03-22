@@ -6,9 +6,10 @@ import { URL } from '../utils/constants';
 
 export default function useProyectos(){
 
-    const createProyecto = async (nombre, descripcion, creadorId ) => {
+    const createProyecto = async (Proyecto ) => {
+        const { nombre, descripcion, creadorId, fecha } = Proyecto
         try {
-            const res = await axios.post(`${URL}/Proyectos`, { nombre, descripcion, creadorId }, {
+            const res = await axios.post(`${URL}/Proyectos`, { nombre, descripcion, creadorId, fecha }, {
                 withCredentials: false
             });
         
@@ -43,6 +44,7 @@ export default function useProyectos(){
     }
 
     const getProyectosByUserId = async (usuarioId) => {
+        console.log(usuarioId)
         try {
             const res = await axios.get(`${URL}/Proyectos/Usuarios/${usuarioId}`, {
                 withCredentials: false
