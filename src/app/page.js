@@ -1,11 +1,11 @@
 'use client'
 import Image from "next/image";
 import withAuth from '../../utils/withAuth';
-import { Nav, Layout, StatsCard, ProjectCard, ModalProyecto } from "../../components";
+import { Nav, Layout, StatsCard, ProjectCard, ModalProyecto, } from "../../components";
 import useUsuarios from "../../hooks/useUsuarios";
 import { useEffect, useState } from "react";
 import { RiCheckboxCircleLine, RiLoader2Line, RiCheckboxCircleFill } from "react-icons/ri";
-import { Button } from "flowbite-react"
+import { Button, Spinner } from "flowbite-react"
 import useProyectos from "../../hooks/useProyectos";
 
 function Home() {
@@ -14,6 +14,7 @@ function Home() {
   const [user, setUser] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(false);
   const handleUser = async () => {
     const user = await decodeToken();
     console.log(user);
@@ -22,11 +23,14 @@ function Home() {
 
   const handleProyectos = async () => {
     try {
+      setLoading(true);
       const user = await decodeToken();
       const res = await getProyectosByUserId(user.usuarioid);
       setProjects(res.data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
   useEffect(() => {
@@ -66,16 +70,18 @@ function Home() {
             <Button color="warning" onClick={() => setOpenModal(true)}>
               Crear Nuevo Proyecto
             </Button>
-           { user && user.usuarioid && (<ModalProyecto id={user.usuarioid} openModal={openModal} setOpenModal={setOpenModal} handleProyectos={handleProyectos} />)}
+            {user && user.usuarioid && (<ModalProyecto id={user.usuarioid} openModal={openModal} setOpenModal={setOpenModal} handleProyectos={handleProyectos} />)}
           </div>
 
+          {loading && <Spinner color="warning" className=" flex mx-auto" size="xl" />}
           <div id="stats" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {projects.map((project, index) => (
+            {!loading && projects.length && projects.length > 0 && projects.map((project, index) => (
               <ProjectCard
                 key={index}
                 title={project.nombre}
                 creator={project.creadorId}
                 date={new Date(project.fecha).toLocaleDateString()}
+                id={project.proyectoId}
               />
             ))}
           </div>

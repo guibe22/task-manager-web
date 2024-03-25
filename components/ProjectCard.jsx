@@ -1,11 +1,13 @@
+"use client"
 import React, { useEffect } from 'react';
 import useUsuarios from '../hooks/useUsuarios';
 import { useState } from 'react';
+import Link from 'next/link';
 
-import { FaTasks, FaInfoCircle  } from "react-icons/fa";
+import { FaTasks, FaInfoCircle } from "react-icons/fa";
 
-function ProjectCard({ title, creator, date }) {
-  const {getUsuarioById} = useUsuarios();
+function ProjectCard({ title, creator, date, id }) {
+  const { getUsuarioById } = useUsuarios();
   const [user, setUser] = useState(null);
   const handleUser = async () => {
     const user = await getUsuarioById(creator);
@@ -29,10 +31,10 @@ function ProjectCard({ title, creator, date }) {
         </div>
       </div>
       <div class="border-t  p-4 bg-orange-100 rounded-lg">
-        <a href="#" class="inline-flex space-x-2 items-center text-center">
+        <Link href={`/proyecto/${id}`} class="inline-flex space-x-2 items-center text-center">
           <FaInfoCircle />
           <span>Mas Informacion</span>
-        </a>
+        </Link>
       </div>
     </div>
   );

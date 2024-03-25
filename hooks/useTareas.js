@@ -1,3 +1,7 @@
+import axios from 'axios';
+import { URL } from '../utils/constants';
+
+
 export default function useTareas() {
 
     const createTarea = async (titulo, descripcion, proyectoId, creadorId, prioridad) => {
@@ -25,6 +29,7 @@ export default function useTareas() {
     }
 
     const getTareasByProyectoId = async (proyectoId) => {
+        console.log( 'proyectoId en GetTareas',proyectoId)
         try {
             const res = await axios.get(`${URL}/Tareas/Proyectos/${proyectoId}`, {
                 withCredentials: false

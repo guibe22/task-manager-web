@@ -4,9 +4,12 @@ import Link from 'next/link';
 import Title from './Title';
 export default function Migas({ href, text, icon }) {
     return (
-        <Link href={href} className='flex'>
-            <IoIosArrowBack size={35} />
+        <div className='flex'>
+            <Link href={href} >
+                <IoIosArrowBack size={35} />
+            </Link>
             <Title title={text} />
-        </Link>
+        </div>
+
     )
 }

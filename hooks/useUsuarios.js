@@ -32,6 +32,7 @@ export default function useUsuarios() {
     }
 
     const getUsuarioById = async (id) => {
+        console.log('id',id)
         try {
             const res = await axios.get(`${URL}/Usuarios/${id}`, {
                 withCredentials: false
@@ -54,7 +55,7 @@ export default function useUsuarios() {
             role: decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'],
             nombre: decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
             usuario: decodedToken.usuario,
-            usuarioid: parseInt(decodedToken.usuarioId)
+            usuarioid: parseInt(decodedToken.usuarioid)
         };
         return usuario;
     }

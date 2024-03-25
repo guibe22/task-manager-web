@@ -14,7 +14,7 @@ function DashboardMenu() {
         setUser(user);
     }
     const signOut = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("tokenTaskManager");
         router.push("/login");
       };
       
