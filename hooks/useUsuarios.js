@@ -44,6 +44,18 @@ export default function useUsuarios() {
             console.error(error)
         }
     }
+    const getUsuarios = async () => {
+        try {
+            const res = await axios.get(`${URL}/Usuarios`, {
+                withCredentials: false
+            });
+            return res.data
+
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
     const decodeToken = async () => {
         const token = localStorage.getItem('tokenTaskManager')
         const secretKey = '+dz<3!3Q@_%]E)P]';
@@ -65,6 +77,7 @@ export default function useUsuarios() {
         Login,
         Register,
         getUsuarioById,
-        decodeToken
+        decodeToken,
+        getUsuarios
     }
 }

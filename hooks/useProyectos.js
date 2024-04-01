@@ -80,9 +80,9 @@ export default function useProyectos(){
         }
     }
 
-    const changeProgresoProyecto = async (id, progreso) => {
+    const changeProgresoProyecto = async (id, nuevoProgreso) => {
         try {
-            const res = await axios.put(`${URL}/Proyectos/progreso/${id}`, { progreso }, {
+            const res = await axios.put(`${URL}/Proyectos/progreso/${id}?nuevoProgreso=${nuevoProgreso}`, {
                 withCredentials: false
             });
     
