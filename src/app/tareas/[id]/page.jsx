@@ -185,7 +185,7 @@ const handleDeleteParticipante = (usuarioId) => {
                                     <button
                                         type="button"
                                          onClick={() => setAddParticipantesModal(true)}
-                                        className=" flex text-black   hover:bg-black-300 hover: focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
+                                        className=" text-black   hover:bg-black-300 hover: focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
                                     >
                                         <IoMdAddCircle />
                                     </button>
@@ -204,7 +204,7 @@ const handleDeleteParticipante = (usuarioId) => {
                                 ><button
                                     type="button"
                                     onClick={() => { handleDeleteParticipante(participante.usuarioId) }}
-                                    class=" flex text-red-700   hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
+                                    className=" text-red-700   hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
                                 >
                                         <MdDelete />
                                     </button>
