@@ -18,6 +18,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         <meta
           name="description"
           content="Web site created using create-react-app"
