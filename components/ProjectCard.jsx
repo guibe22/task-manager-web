@@ -19,7 +19,7 @@ function ProjectCard({ title, creator, date, id }) {
   }, []);
   console.log(title, creator, date);
   return (
-    <div className="bg-gray-100  to-white/5 rounded-lg">
+    <div className="flex flex-col justify-end bg-gray-100  to-white/5 rounded-lg">
       <div className="flex flex-row items-center">
         <div className="text-3xl p-4">
           <FaTasks />
@@ -30,7 +30,7 @@ function ProjectCard({ title, creator, date, id }) {
           <p className="text-sm">{date}</p>
         </div>
       </div>
-      <div class="border-t  p-4 bg-orange-100 rounded-lg">
+      <div className="border-t  p-4 bg-orange-100 rounded-lg">
         <Link href={`/proyecto/${id}`} class="inline-flex space-x-2 items-center text-center">
           <FaInfoCircle />
           <span>Mas Informacion</span>

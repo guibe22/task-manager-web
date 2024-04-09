@@ -13,6 +13,7 @@ import { IoMdAddCircle, IoMdSend, } from "react-icons/io";
 import ModalAddtareas from "./ModalAddTarea";
 import ModalAddParticipantes from "./ModalAddParticipantes";
 import { useRouter } from "next/navigation";
+import { AiOutlineConsoleSql } from "react-icons/ai";
 
 
 const page = ({ params }) => {
@@ -130,20 +131,19 @@ const page = ({ params }) => {
         if (tarea.tarea.creadorId === user.usuarioid) {
             return router.push(`/tareas/${tareaId}`);
         }
+        console.log('tarea', tarea.participantes)
 
-        if (tarea.participantes.contains(user.usuarioid)) {
+        if (tarea.participantes.includes(user.usuarioid)) {
             return router.push(`/tareas/${tareaId}`);
         }
 
-        Toast.show({
-            title: 'No tienes permiso para ver esta tarea',
-            description: 'No puedes ver esta tarea porque no eres el creador ni un participante',
-            type: 'error',
-            duration: 5000,
-        });
+        Toast.fire({
+            icon: 'error',
+            title: 'No tienes permisos para ver esta tarea'
+        })
     }
 
-    console.log('miembros', miembros)
+    console.log('tarea', tareas)
 
 
 
