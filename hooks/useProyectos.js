@@ -10,7 +10,9 @@ export default function useProyectos() {
         const { nombre, descripcion, creadorId, fecha, estado,fechaFinalizado} = Proyecto
         try {
             const res = await axios.post(`${URL}/Proyectos`, { nombre, descripcion, creadorId, fecha, estado }, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
+                
             });
 
             return res
@@ -22,7 +24,8 @@ export default function useProyectos() {
     const getProyectoById = async (id) => {
         try {
             const res = await axios.get(`${URL}/Proyectos/${id}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -34,7 +37,8 @@ export default function useProyectos() {
     const getProyectos = async () => {
         try {
             const res = await axios.get(`${URL}/Proyectos`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -47,7 +51,8 @@ export default function useProyectos() {
         console.log(usuarioId)
         try {
             const res = await axios.get(`${URL}/Proyectos/Usuarios/${usuarioId}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -59,7 +64,8 @@ export default function useProyectos() {
     const updateProyecto = async (id, nombre, descripcion) => {
         try {
             const res = await axios.put(`${URL}/Proyectos/${id}`, { nombre, descripcion }, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -71,7 +77,8 @@ export default function useProyectos() {
     const changeEstadoProyecto = async (id, estado) => {
         try {
             const res = await axios.put(`${URL}/Proyectos/estado/${id}?nuevoEstado=${estado}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -85,7 +92,8 @@ export default function useProyectos() {
         console.log('nuevoProgreso en changeProgresoProyecto', nuevoProgreso)
         try {
             const res = await axios.put(`${URL}/Proyectos/progreso/${id}?nuevoProgreso=${nuevoProgreso}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -99,7 +107,8 @@ export default function useProyectos() {
         const activo = true
         try {
             const res = await axios.post(`${URL}/MiembrosProyectos`, { ProyectoId, usuarioId, activo }, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -111,7 +120,8 @@ export default function useProyectos() {
     const removeMiembroProyecto = async (proyectoId, usuarioId) => {
         try {
             const res = await axios.delete(`${URL}/MiembrosProyectos/ProyectoUsuario/${proyectoId}/${usuarioId}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -124,7 +134,8 @@ export default function useProyectos() {
         console.log('proyectoId en getMiembrosProyecto', proyectoId)
         try {
             const res = await axios.get(`${URL}/MiembrosProyectos/UsuariosPorProyecto/${proyectoId}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res.data
@@ -136,7 +147,8 @@ export default function useProyectos() {
     const getEstadisticasProyecto = async (usuarioId) => {
         try {
             const res = await axios.get(`${URL}/Proyectos/Estadisticas/${usuarioId}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res.data

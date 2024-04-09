@@ -9,7 +9,9 @@ export default function useTareas() {
         const { titulo, descripcion, proyectoId, estado, creadorId, prioridad, activo, fecha, fechaFinalizado} = Tarea
         try {
             const res = await axios.post(`${URL}/Tareas`, { titulo, descripcion, estado, proyectoId, creadorId, prioridad, activo, fecha}, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
+                
             });
 
             return res
@@ -21,7 +23,8 @@ export default function useTareas() {
     const getTareaById = async (id) => {
         try {
             const res = await axios.get(`${URL}/Tareas/${id}/Participantes`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -34,7 +37,8 @@ export default function useTareas() {
         console.log( 'proyectoId en GetTareas',proyectoId)
         try {
             const res = await axios.get(`${URL}/Tareas/Proyectos/${proyectoId}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -47,7 +51,8 @@ export default function useTareas() {
         console.log('usuarioId en getTareasByUserId', usuarioId)
         try {
             const res = await axios.get(`${URL}/Tareas/Usuarios/${usuarioId}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -59,7 +64,8 @@ export default function useTareas() {
     const getTareaConParticipanteId = async (participanteId) => {
         try {
             const res = await axios.get(`${URL}/Tareas/${participanteId}/Participantes`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -73,7 +79,8 @@ export default function useTareas() {
         console.log('nuevoEstado en changeEstadoTarea', nuevoEstado)
         try {
             const res = await axios.put(`${URL}/Tareas/estado/${id}?nuevoEstado=${nuevoEstado}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
             return res
         } catch (error) {
@@ -85,7 +92,8 @@ export default function useTareas() {
         try {
             const activo = true
             const res = await axios.post(`${URL}/ParticipantesTareas`, { tareaId, usuarioId, activo }, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
             return res
         } catch (error) {
@@ -96,7 +104,8 @@ export default function useTareas() {
     const removeParticipante = async (tareaId, usuarioId) => {
         try {
             const res = await axios.delete(`${URL}/ParticipantesTareas/Tarea/${tareaId}/Usuario/${usuarioId}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
             return res
         } catch (error) {
@@ -107,7 +116,8 @@ export default function useTareas() {
     const getComentariosByTareaId = async (tareaId) => {
         try {
             const res = await axios.get(`${URL}/Comentarios/ByTarea/${tareaId}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
             return res
         } catch (error) {
@@ -119,7 +129,8 @@ export default function useTareas() {
         const { comentario, usuarioId, tareaId, activo } = Comentario
         try {
             const res = await axios.post(`${URL}/Comentarios`, { comentario, usuarioId, tareaId, activo }, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res

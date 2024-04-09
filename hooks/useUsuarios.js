@@ -10,7 +10,8 @@ export default function useUsuarios() {
     const Login = async (correo, contraseña) => {
         try {
             const res = await axios.post(`${URL}/Usuarios/Login`, { correo, contraseña }, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -22,7 +23,8 @@ export default function useUsuarios() {
     const Register = async (usuario, nombre, correo, contraseña) => {
         try {
             const res = await axios.post(`${URL}/Usuarios`, { usuario, nombre, correo, contraseña }, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
 
             return res
@@ -35,7 +37,8 @@ export default function useUsuarios() {
         console.log('id',id)
         try {
             const res = await axios.get(`${URL}/Usuarios/${id}`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
             console.log('usuarioByID',res)
             return res.data
@@ -47,7 +50,8 @@ export default function useUsuarios() {
     const getUsuarios = async () => {
         try {
             const res = await axios.get(`${URL}/Usuarios`, {
-                withCredentials: false
+                withCredentials: false,
+                referrerPolicy: 'unsafe-url' 
             });
             return res.data
 
