@@ -4,27 +4,27 @@ import { jwtDecode } from "jwt-decode";
 import { URL } from '../utils/constants';
 
 
-export default function useProyectos(){
+export default function useProyectos() {
 
-    const createProyecto = async (Proyecto ) => {
-        const { nombre, descripcion, creadorId, fecha } = Proyecto
+    const createProyecto = async (Proyecto) => {
+        const { nombre, descripcion, creadorId, fecha, estado,fechaFinalizado} = Proyecto
         try {
-            const res = await axios.post(`${URL}/Proyectos`, { nombre, descripcion, creadorId, fecha }, {
+            const res = await axios.post(`${URL}/Proyectos`, { nombre, descripcion, creadorId, fecha, estado }, {
                 withCredentials: false
             });
-        
-        return res
-    } catch (error) {
-       console.error(error)
-     }
+
+            return res
+        } catch (error) {
+            console.error(error)
+        }
     }
 
-     const getProyectoById = async (id) => {
+    const getProyectoById = async (id) => {
         try {
             const res = await axios.get(`${URL}/Proyectos/${id}`, {
                 withCredentials: false
             });
-    
+
             return res
         } catch (error) {
             console.error(error)
@@ -36,7 +36,7 @@ export default function useProyectos(){
             const res = await axios.get(`${URL}/Proyectos`, {
                 withCredentials: false
             });
-    
+
             return res
         } catch (error) {
             console.error(error)
@@ -49,7 +49,7 @@ export default function useProyectos(){
             const res = await axios.get(`${URL}/Proyectos/Usuarios/${usuarioId}`, {
                 withCredentials: false
             });
-    
+
             return res
         } catch (error) {
             console.error(error)
@@ -61,7 +61,7 @@ export default function useProyectos(){
             const res = await axios.put(`${URL}/Proyectos/${id}`, { nombre, descripcion }, {
                 withCredentials: false
             });
-    
+
             return res
         } catch (error) {
             console.error(error)
@@ -70,10 +70,10 @@ export default function useProyectos(){
 
     const changeEstadoProyecto = async (id, estado) => {
         try {
-            const res = await axios.put(`${URL}/Proyectos/estado/${id}`, { estado }, {
+            const res = await axios.put(`${URL}/Proyectos/estado/${id}?nuevoEstado=${estado}`, {
                 withCredentials: false
             });
-    
+
             return res
         } catch (error) {
             console.error(error)
@@ -81,41 +81,71 @@ export default function useProyectos(){
     }
 
     const changeProgresoProyecto = async (id, nuevoProgreso) => {
+        console.log('id en changeProgresoProyecto', id)
+        console.log('nuevoProgreso en changeProgresoProyecto', nuevoProgreso)
         try {
             const res = await axios.put(`${URL}/Proyectos/progreso/${id}?nuevoProgreso=${nuevoProgreso}`, {
                 withCredentials: false
             });
-    
+
             return res
         } catch (error) {
             console.error(error)
         }
     }
-    const addMiembroProyecto = async (id, miembroId) => {
+    const addMiembroProyecto = async (ProyectoId, usuarioId) => {
+        console.log('ProyectoId en addMiembroProyecto', ProyectoId)
+        console.log('miembroId en addMiembroProyecto', usuarioId)
+        const activo = true
         try {
-            const res = await axios.post(`${URL}/Proyectos/miembros/${id}`, { miembroId }, {
+            const res = await axios.post(`${URL}/MiembrosProyectos`, { ProyectoId, usuarioId, activo }, {
                 withCredentials: false
             });
-    
+
             return res
         } catch (error) {
             console.error(error)
         }
     }
 
-    const removeMiembroProyecto = async (proyectoid, usuarioId) => {
+    const removeMiembroProyecto = async (proyectoId, usuarioId) => {
         try {
-            const res = await axios.delete(`${URL}/MiembrosProyectos`,{proyectoid,usuarioId}, {
+            const res = await axios.delete(`${URL}/MiembrosProyectos/ProyectoUsuario/${proyectoId}/${usuarioId}`, {
                 withCredentials: false
             });
-    
+
             return res
         } catch (error) {
             console.error(error)
         }
     }
 
-  
+    const getMiembrosProyecto = async (proyectoId) => {
+        console.log('proyectoId en getMiembrosProyecto', proyectoId)
+        try {
+            const res = await axios.get(`${URL}/MiembrosProyectos/UsuariosPorProyecto/${proyectoId}`, {
+                withCredentials: false
+            });
+
+            return res.data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+    const getEstadisticasProyecto = async (usuarioId) => {
+        try {
+            const res = await axios.get(`${URL}/Proyectos/Estadisticas/${usuarioId}`, {
+                withCredentials: false
+            });
+
+            return res.data
+        } catch (error) {
+            console.error(error)
+        }
+    }
+
+
 
     return {
         createProyecto,
@@ -126,6 +156,8 @@ export default function useProyectos(){
         addMiembroProyecto,
         changeEstadoProyecto,
         changeProgresoProyecto,
-        removeMiembroProyecto
+        removeMiembroProyecto,
+        getMiembrosProyecto,
+        getEstadisticasProyecto
     }
 }

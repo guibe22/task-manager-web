@@ -5,12 +5,12 @@ import { use, useState, useEffect } from 'react';
 import useTareas from '../../../../hooks/useTareas';
 import Select from 'react-select'
 import { Prioridad, Toast } from '../../../../components';
-import useUsuarios from '../../../../hooks/useUsuarios';
+import useProyectos from '../../../../hooks/useProyectos';
 
 
-export default function ModalAddParticipantes({ openModal, setOpenModal, setTarea, TareaId }) {
+export default function ModalAddParticipantes({ openModal, setOpenModal, setTarea, TareaId, ProyectoId }) {
     const{addParticipante,getTareaById} = useTareas()
-    const { getUsuarios } = useUsuarios()
+   const {getMiembrosProyecto} = useProyectos()
     const [Participante, setParticipante] = useState(0)
     const [usuarios, setUsuarios] = useState([])
 
@@ -38,7 +38,8 @@ export default function ModalAddParticipantes({ openModal, setOpenModal, setTare
     }
     const handleUsuarios = async () => {
         try {
-            const res = await getUsuarios()
+            const res = await getMiembrosProyecto(ProyectoId)
+            console.log(res)
 
 
             const usuarios = res.map(usuario => {

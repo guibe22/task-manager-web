@@ -8,7 +8,7 @@ export default function useTareas() {
         console.log('Tarea en createTarea', Tarea)
         const { titulo, descripcion, proyectoId, estado, creadorId, prioridad, activo, fecha, fechaFinalizado} = Tarea
         try {
-            const res = await axios.post(`${URL}/Tareas`, { titulo, descripcion, estado, proyectoId, creadorId, prioridad, activo, fecha, fechaFinalizado }, {
+            const res = await axios.post(`${URL}/Tareas`, { titulo, descripcion, estado, proyectoId, creadorId, prioridad, activo, fecha}, {
                 withCredentials: false
             });
 
@@ -44,6 +44,7 @@ export default function useTareas() {
     }
 
     const getTareasByUserId = async (usuarioId) => {
+        console.log('usuarioId en getTareasByUserId', usuarioId)
         try {
             const res = await axios.get(`${URL}/Tareas/Usuarios/${usuarioId}`, {
                 withCredentials: false

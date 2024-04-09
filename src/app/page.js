@@ -9,12 +9,13 @@ import { Button, Spinner } from "flowbite-react"
 import useProyectos from "../../hooks/useProyectos";
 
 function Home() {
-  const { decodeToken, getUsuarioById } = useUsuarios();
-  const { getProyectosByUserId } = useProyectos();
+  const { decodeToken, getUsuarioById, } = useUsuarios();
+  const { getProyectosByUserId,getEstadisticasProyecto } = useProyectos();
   const [user, setUser] = useState(null);
   const [openModal, setOpenModal] = useState(false);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [estadisticas, setEstadisticas] = useState(null);
   const handleUser = async () => {
     const user = await decodeToken();
     console.log(user);
@@ -25,8 +26,23 @@ function Home() {
     try {
       setLoading(true);
       const user = await decodeToken();
-      const res = await getProyectosByUserId(user.usuarioid);
+      const res = await getProyectosByUserId(user.usuarioid)
+
+      
       setProjects(res.data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handleEstadisticas = async () => {
+    try {
+      setLoading(true);
+      const user = await decodeToken();
+      const res = await getEstadisticasProyecto(user.usuarioid)
+      setEstadisticas(res.estadisticas);
     } catch (error) {
       console.error(error);
     } finally {
@@ -37,6 +53,7 @@ function Home() {
     handleUser();
     handleProyectos();
     setOpenModal(false);
+    handleEstadisticas()
   }, []);
 
 
@@ -49,17 +66,17 @@ function Home() {
         <div id="stats" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <StatsCard
             title="Recibidos"
-            number="10"
+            number={estadisticas?.proyectosRecibidos}
             icon={<RiCheckboxCircleLine className="w-10 h-10 text-blue-500" />}
           />
           <StatsCard
             title="En Progreso"
-            number="5"
+            number={estadisticas?.proyectosEnProgreso}
             icon={<RiLoader2Line className="w-10 h-10 text-yellow-500" />}
           />
           <StatsCard
             title="Finalizados"
-            number="20"
+            number={estadisticas?.proyectosFinalizados}
             icon={<RiCheckboxCircleFill className="w-10 h-10 text-green-500" />}
           />
         </div>

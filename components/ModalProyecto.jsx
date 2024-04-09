@@ -16,6 +16,7 @@ export default function ModalProyecto({ id, openModal, setOpenModal, handleProye
         creadorId: id,
         estado: "recibido",
         progreso: 0,
+        fechaFinalizado: null,
         fecha: new Date(),
 
         activo: true

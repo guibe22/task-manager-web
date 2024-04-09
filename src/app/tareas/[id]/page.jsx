@@ -1,6 +1,6 @@
 'use client'
 import withAuth from "../../../../utils/withAuth";
-import { Layout, Migas, EstadoView, Usuario, Prioridad } from "../../../../components";
+import { Layout, Migas, EstadoView, Usuario, Prioridad,Toast } from "../../../../components";
 import { useState, useEffect } from "react";
 import useTareas from "../../../../hooks/useTareas";
 import { Dropdown, Textarea, Button, Timeline, Tooltip } from "flowbite-react"
@@ -166,7 +166,7 @@ const handleDeleteParticipante = (usuarioId) => {
                                 {tarea?.tarea?.fecha && (new Date(tarea?.tarea?.fecha).toLocaleDateString())}
                             </span>
                         </Tooltip>
-                        {tarea?.tarea?.fechaFinalizado && (
+                        {tarea?.tarea?.fechaFinalizado !="0001-01-01T00:00:00"  && (
                             <Tooltip content="fecha Fin" style="dark">
 
                                 <span className="flex items-center gap-2 mb-4">
@@ -189,7 +189,7 @@ const handleDeleteParticipante = (usuarioId) => {
                                     >
                                         <IoMdAddCircle />
                                     </button>
-                                    <ModalAddParticipantes openModal={addParticipantesModal} setOpenModal={setAddParticipantesModal} setTarea={setTarea} TareaId={id} />
+                                    <ModalAddParticipantes openModal={addParticipantesModal} setOpenModal={setAddParticipantesModal} setTarea={setTarea} TareaId={id} ProyectoId={tarea?.tarea?.proyectoId} />
                                 </Tooltip>
                             )
 

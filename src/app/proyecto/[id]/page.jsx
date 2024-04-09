@@ -34,8 +34,8 @@ const page = ({ params }) => {
         try {
             setLoading(true);
             const res = await getProyectoById(id);
-            setProyecto(res.data.proyecto);
-            setMiembros(res.data.miembros);
+            await setProyecto(res.data.proyecto);
+            await setMiembros(res.data.miembros);
         } catch (error) {
             console.error(error);
         } finally {
@@ -58,7 +58,10 @@ const page = ({ params }) => {
     const handleEstadoProyecto = async (estado) => {
         try {
             setLoading(true);
-            const res = await changeEstadoProyecto(id, estado);
+            changeEstadoProyecto(id, estado).then(res => {
+                handleProyecto();
+            })
+
         } catch (error) {
             console.error(error);
         } finally {
@@ -97,11 +100,13 @@ const page = ({ params }) => {
     const handleProgreso = async () => {
         const progreso = await calcularProgreso();
         console.log('progreso', progreso)
-        const res = await changeProgresoProyecto(id, progreso).then(res => {
-            getTareasByProyectoId(id)
-            handleProyecto();
-        });
-
+        if (progreso > 0) {
+            const res = await changeProgresoProyecto(id, progreso)
+            if (res?.status === 200) {
+                getTareasByProyectoId(id)
+                handleProyecto();
+            }
+        }
     }
 
     const handleDeleteMiembro = async (miembroId) => {
@@ -137,6 +142,8 @@ const page = ({ params }) => {
             duration: 5000,
         });
     }
+
+    console.log('miembros', miembros)
 
 
 
@@ -257,7 +264,7 @@ const page = ({ params }) => {
                                 {proyecto?.fecha && (new Date(proyecto.fecha).toLocaleDateString())}
                             </span>
                         </Tooltip>
-                        {proyecto?.fechaFinalizado && (
+                        {proyecto?.fechaFinalizado !="0001-01-01T00:00:00" && (
                             <Tooltip content="fecha Fin" style="dark">
 
                                 <span className="flex items-center gap-2 mb-4">
@@ -277,7 +284,7 @@ const page = ({ params }) => {
                                     <button
                                         type="button"
                                         onClick={() => setAddParticipantesModal(true)}
-                                        className=" flex text-black   hover:bg-black-300 hover: focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
+                                        className=" text-black   hover:bg-black-300 hover: focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
                                     >
                                         <IoMdAddCircle />
                                     </button>
@@ -295,7 +302,7 @@ const page = ({ params }) => {
                                 ><button
                                     type="button"
                                     onClick={() => { handleDeleteMiembro(miembro.usuarioId) }}
-                                    class=" flex text-red-700   hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
+                                    className="  text-red-700   hover:bg-red-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center "
                                 >
                                         <MdDelete />
                                     </button>
