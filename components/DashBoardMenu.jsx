@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-function DashboardMenu() {
+export default function DashboardMenu() {
     const router = useRouter();
     const { decodeToken } = useUsuarios();
     const [user, setUser] = useState(null);
@@ -79,4 +79,3 @@ function DashboardMenu() {
     );
 }
 
-export default DashboardMenu;
