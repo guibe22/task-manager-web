@@ -62,7 +62,7 @@ function Home() {
     <Layout>
 
       <div>
-        <h1 className="font-bold py-4 uppercase">Estadisticas tareas</h1>
+        <h1 className="font-bold py-4 uppercase">Estadisticas Proyectos</h1>
         <div id="stats" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <StatsCard
             title="Recibidos"
