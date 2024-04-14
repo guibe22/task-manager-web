@@ -7,12 +7,12 @@ import { URL } from '../utils/constants';
 export default function useProyectos() {
 
     const createProyecto = async (Proyecto) => {
-        const { nombre, descripcion, creadorId, fecha, estado,fechaFinalizado} = Proyecto
+        const { nombre, descripcion, creadorId, fecha, estado, activo } = Proyecto
         try {
-            const res = await axios.post(`${URL}/Proyectos`, { nombre, descripcion, creadorId, fecha, estado }, {
+            const res = await axios.post(`${URL}/Proyectos`, { nombre, descripcion, creadorId, fecha, estado, activo }, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
-                
+                referrerPolicy: 'unsafe-url'
+
             });
 
             return res
@@ -25,7 +25,7 @@ export default function useProyectos() {
         try {
             const res = await axios.get(`${URL}/Proyectos/${id}`, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res
@@ -38,7 +38,7 @@ export default function useProyectos() {
         try {
             const res = await axios.get(`${URL}/Proyectos`, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res
@@ -52,7 +52,7 @@ export default function useProyectos() {
         try {
             const res = await axios.get(`${URL}/Proyectos/Usuarios/${usuarioId}`, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res
@@ -65,7 +65,7 @@ export default function useProyectos() {
         try {
             const res = await axios.put(`${URL}/Proyectos/${id}`, { nombre, descripcion }, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res
@@ -78,7 +78,7 @@ export default function useProyectos() {
         try {
             const res = await axios.put(`${URL}/Proyectos/estado/${id}?nuevoEstado=${estado}`, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res
@@ -93,7 +93,7 @@ export default function useProyectos() {
         try {
             const res = await axios.put(`${URL}/Proyectos/progreso/${id}?nuevoProgreso=${nuevoProgreso}`, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res
@@ -108,7 +108,7 @@ export default function useProyectos() {
         try {
             const res = await axios.post(`${URL}/MiembrosProyectos`, { ProyectoId, usuarioId, activo }, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res
@@ -121,7 +121,7 @@ export default function useProyectos() {
         try {
             const res = await axios.delete(`${URL}/MiembrosProyectos/ProyectoUsuario/${proyectoId}/${usuarioId}`, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res
@@ -135,7 +135,7 @@ export default function useProyectos() {
         try {
             const res = await axios.get(`${URL}/MiembrosProyectos/UsuariosPorProyecto/${proyectoId}`, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res.data
@@ -148,7 +148,7 @@ export default function useProyectos() {
         try {
             const res = await axios.get(`${URL}/Proyectos/Estadisticas/${usuarioId}`, {
                 withCredentials: false,
-                referrerPolicy: 'unsafe-url' 
+                referrerPolicy: 'unsafe-url'
             });
 
             return res.data

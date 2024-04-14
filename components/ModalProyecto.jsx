@@ -18,7 +18,6 @@ export default function ModalProyecto({ id, openModal, setOpenModal, handleProye
         progreso: 0,
         fechaFinalizado: null,
         fecha: new Date(),
-
         activo: true
     });
     const handleSubmit = async () => {
