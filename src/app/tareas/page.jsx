@@ -39,6 +39,11 @@ const page = () => {
                 text={'MI LISTA DE TAREAS'}
             />
             <hr className="my-3 mb-3" />
+            {!tareas && !loading && (
+                <div className="flex justify-center items-center">
+                    <h1 className="text-2xl font-bold">No hay tareas asignadas</h1>
+                </div>
+            )}
             { tareas && !loading && tareas.length > 0 && (
                 <Table striped>
                     <Table.Head>
