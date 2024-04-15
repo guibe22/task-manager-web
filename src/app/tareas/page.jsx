@@ -20,7 +20,7 @@ const page = () => {
     const handleTareas = async () => {
         const user = await decodeToken();
         const res = await getTareasByUserId(user.usuarioid)
-        setTareas(res.data);
+        setTareas(res?.data);
 
     }
 
